@@ -110,8 +110,6 @@ python-semantic-release = "^7.23.0"
 safety = "^1.10.3"
 taskipy = "^1.9.0"
 toml-sort = "^0.19.0"
-tox = "^3.24.4"
-tox-poetry = "^0.4.1"
 
 [tool.pytest]
 
@@ -133,7 +131,7 @@ version_variable = [
 
 [tool.taskipy.tasks]
 clean = "task clean_cache && task clean_pyc && task clean_pyo && task clean_tmp && task clean_pycache"
-clean_cache = "rm -rf .pytest_cache/ .mypy_cache/ .coverage .tox coverage.xml"
+clean_cache = "rm -rf .pytest_cache/ .mypy_cache/ .coverage coverage.xml"
 clean_pyc = "find . -name '*.pyc' -exec rm -f {} +"
 clean_pycache = "find . -name '__pycache__' -exec rm -fr {} +"
 clean_pyo = "find . -name '*.pyo' -exec rm -f {} +"
