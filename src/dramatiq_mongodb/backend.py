@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import time
+from typing import Any
+from typing import Dict
 from typing import Optional
 from typing import Tuple
 from uuid import UUID
@@ -20,7 +22,6 @@ from pymongo import MongoClient
 from pymongo.collection import Collection
 from pymongo.database import Database
 
-from dramatiq_mongodb._types import Result
 from dramatiq_mongodb.state import State
 
 #: The default timeout for blocking get operations in milliseconds.
@@ -39,7 +40,7 @@ class MongoDBBackend(ResultBackend):
         mongo_client: MongoClient,
         database_name: str,
         collection_prefix: Optional[str] = "",
-        namespace: Optional[str] = "dramatiq-results",
+        namespace: Optional[str] = None,
         encoder: Optional[Encoder] = None,
     ) -> None:
         """Initialize Results Backend.
@@ -51,6 +52,9 @@ class MongoDBBackend(ResultBackend):
             namespace (str, optional): Unused by MongoDBBackend. Defaults to "dramatiq-results".
             encoder (Encoder, optional): Unused by MongoDBBackend. Defaults to None.
         """
+        if not namespace:
+            namespace = "dramatiq-results"
+
         super().__init__(namespace=namespace, encoder=encoder)
 
         self.mongo_client = mongo_client
@@ -97,7 +101,7 @@ class MongoDBBackend(ResultBackend):
         *,
         block: Optional[bool] = False,
         timeout: Optional[int] = None,
-    ) -> Result:
+    ) -> Dict[Any, Any]:
         """Return results from a task.
 
         Args:
@@ -127,7 +131,7 @@ class MongoDBBackend(ResultBackend):
             document = collection.find_one(filter={"_id": message_key, "state": State.DONE})
 
             if document:
-                result: Result = self.unwrap_result(document["result"])
+                result: Dict[Any, Any] = self.unwrap_result(document["result"])
                 return result
 
             elif not block:
@@ -138,7 +142,7 @@ class MongoDBBackend(ResultBackend):
 
             time.sleep(delay)
 
-    def store_result(self: MongoDBBackend, message: Message, result: Result, ttl: Optional[int]) -> None:
+    def store_result(self: MongoDBBackend, message: Message, result: Dict[Any, Any], ttl: Optional[int]) -> None:
         """Store result for a successful message.
 
         Args:
