@@ -1,0 +1,17 @@
+{
+  "name": "Python 3",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "..",
+    "args": {
+      "VARIANT": "3.10-bullseye",
+      "NODE_VERSION": "none"
+    }
+  },
+  "extensions": ["ms-python.python", "ms-python.vscode-pylance"],
+  "postCreateCommand": "make install",
+  "remoteUser": "vscode",
+  "features": {
+    "docker-in-docker": "latest"
+  }
+}
