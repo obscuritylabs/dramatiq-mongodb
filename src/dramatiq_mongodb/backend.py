@@ -18,7 +18,6 @@ from dramatiq.results import ResultMissing
 from dramatiq.results import ResultTimeout
 from dramatiq.results.result import wrap_exception
 from dramatiq.results.result import wrap_result
-from pymongo import MongoClient
 from pymongo.collection import Collection
 from pymongo.database import Database
 
@@ -37,8 +36,7 @@ class MongoDBBackend(ResultBackend):
     def __init__(
         self: MongoDBBackend,
         *,
-        mongo_client: MongoClient,
-        database_name: str,
+        database: Database,
         collection_prefix: Optional[str] = "",
         namespace: Optional[str] = None,
         encoder: Optional[Encoder] = None,
@@ -46,8 +44,7 @@ class MongoDBBackend(ResultBackend):
         """Initialize Results Backend.
 
         Args:
-            mongo_client (MongoClient): The client to use
-            database_name (str): The database to create collections in
+            database (Database): The database to create collections in
             collection_prefix (str, optional): Prefix for all newly created collections. Defaults to "".
             namespace (str, optional): Unused by MongoDBBackend. Defaults to "dramatiq-results".
             encoder (Encoder, optional): Unused by MongoDBBackend. Defaults to None.
@@ -57,17 +54,13 @@ class MongoDBBackend(ResultBackend):
 
         super().__init__(namespace=namespace, encoder=encoder)
 
-        self.mongo_client = mongo_client
-        self.database_name = database_name
-
         if collection_prefix:
             collection_prefix = collection_prefix.rstrip("_") + "_"
 
         self._collection_prefix = collection_prefix
 
         self.logger = get_logger(__name__, type(self))
-        self.client = mongo_client
-        self.database: Database = mongo_client.get_database(database_name)
+        self.database = database
 
     def build_message_key(self: MongoDBBackend, message: Message) -> Tuple[Collection, UUID]:
         """Extract the MongoDB Collection name and UUID used for documents from messae.

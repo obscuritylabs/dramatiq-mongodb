@@ -9,7 +9,7 @@
     }
   },
   "extensions": ["ms-python.python", "ms-python.vscode-pylance"],
-  "postCreateCommand": "make install",
+  "postCreateCommand": "poetry install && poetry run task init",
   "remoteUser": "vscode",
   "features": {
     "docker-in-docker": "latest"
