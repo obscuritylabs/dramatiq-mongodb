@@ -1283,6 +1283,20 @@ isort = ">=4.0"
 tests = ["mock"]
 
 [[package]]
+name = "pytest-mongodb"
+version = "2.2.0"
+description = "pytest plugin for MongoDB fixtures"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+mongomock = "*"
+pymongo = "*"
+pytest = ">=2.5.2"
+pyyaml = ">=5.1"
+
+[[package]]
 name = "pytest-mypy"
 version = "0.8.1"
 description = "Mypy static type checker plugin for Pytest"
@@ -1804,7 +1818,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7,<4"
-content-hash = "470c6376fe4ba0f9ddce8ae182d85062758a760e53f0e63db8ecc6e2be90127e"
+content-hash = "247a274f2e4cb0e4137e7faa63d0cf6f2bedd66e2d0d25749165b0976460c36a"
 
 [metadata.files]
 argcomplete = [
@@ -2609,6 +2623,9 @@ pytest-icdiff = [
 pytest-isort = [
     {file = "pytest-isort-2.0.0.tar.gz", hash = "sha256:821a8c5c9c4f3a3c52cfa9c541fbe89ac9e28728125125af53724c4c3f129117"},
     {file = "pytest_isort-2.0.0-py3-none-any.whl", hash = "sha256:ab949c593213dad38ba75db32a0ce361fcddd11d4152be4a2c93b85104cc4376"},
+]
+pytest-mongodb = [
+    {file = "pytest_mongodb-2.2.0-py2.py3-none-any.whl", hash = "sha256:60c25a78ed0e8f76da91598ae191c491bc2ba419bd649015b53ab3d7b6236945"},
 ]
 pytest-mypy = [
     {file = "pytest-mypy-0.8.1.tar.gz", hash = "sha256:1fa55723a4bf1d054fcba1c3bd694215a2a65cc95ab10164f5808afd893f3b11"},
