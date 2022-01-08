@@ -12,3 +12,4 @@ strictness = full
 per-file-ignores =
     tests/*.py:
         S101
+        DAR101
