@@ -144,20 +144,20 @@ x5ToU2y/HLBKDRqywwPibrYwcUXMmXpKj40xC53dmsIZw41HACHSKgywg4auWric
 -----END PGP PUBLIC KEY BLOCK-----
 ```
 
-# Security Policy Technical Bits
+## Security Policy Technical Bits
 
-## Full Vulnerability Disclosure Policy 
+### Full Vulnerability Disclosure Policy 
 
 Version 2021.1
 
-## Security.txt
+### Security.txt
 Security.txt provides a machine-readable file which defines core attributes or your VDP, and is designed to be hosted on websites.
 
 The security.txt file should be placed under the /.well-known/ path (/.well-known/security.txt) on websites. It can also be placed in the root directory (/security.txt) of a website, especially if the /.well-known/ directory cannot be used for technical reasons or as a fallback. The file can be placed in both locations of a website at the same time.
 
 For more information visit https://securitytxt.org and the associated RFC8615.
 
-## DNS Security.txt
+### DNS Security.txt
 
 The DNS Security TXT standard provides machine-readable records that define core attributes of your VDP, and is designed to be hosted using DNS TXT records in your domain/s.
 
