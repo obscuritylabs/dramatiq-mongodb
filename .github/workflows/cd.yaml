@@ -21,6 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
+          token: ${{ secrets.BOT_PERSONAL_ACCESS_TOKEN }}
           fetch-depth: 0
 
       - name: Set up Python ${{ matrix.python-version }}
@@ -57,9 +58,10 @@ jobs:
 
       - name: Run Release Task
         run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "action@github.com"
+          git config --global user.name "Obscurity Labs Bot"
+          git config --global user.email "github@obscuritylabs.com"
+
           poetry run task release
         env:
-          GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GH_TOKEN: ${{secrets.BOT_PERSONAL_ACCESS_TOKEN}}
           PyPI_TOKEN: ${{secrets.PyPI_TOKEN}}
