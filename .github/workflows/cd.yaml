@@ -52,7 +52,7 @@ jobs:
           git config --global user.name "github-actions"
           git config --global user.email "action@github.com"
           poetry run task format
-          poetry run task release -D commit_author="github-actions <action@github.com>"
+          poetry run task release
         env:
           GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
           PyPI_TOKEN: ${{secrets.PyPI_TOKEN}}
