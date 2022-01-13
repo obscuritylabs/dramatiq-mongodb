@@ -52,7 +52,7 @@ authors = ["Tory Clasen <ToryClasen@Gmail.com>"]
 description = ""
 license = "MIT"
 name = "dramatiq-mongodb"
-version = "0.1.0"
+version = "0.2.0"
 
 [tool.poetry.dependencies]
 dramatiq = "^1.12.1"
