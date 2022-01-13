@@ -116,10 +116,11 @@ addopts = "-p no:warnings -ra --flake8 --isort --black --mypy --cov=src/ --cov-r
 testpaths = ["src/", "tests/"]
 
 [tool.semantic_release]
+major_on_zero = false
 branch = "main"
-build_command = "pip install poetry && poetry build -n --format=wheel"
-repository = "testpypi"
+build_command = "poetry build -n"
 upload_to_PyPI = true
+upload_to_release = true
 version_variable = [
     "src/dramatiq_mongodb/__init__.py:__version__",
     "pyproject.toml:version",
