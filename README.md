@@ -1,7 +1,7 @@
 # Dramatiq-Mongodb Broker and Results Backend for Dramatiq
 
-| :exclamation: _WARNING_ This is very early beta software that has not yet been proven to work. Use at your own risk! :exclamation: |
-| ---------------------------------------------------------------------------------------------------------------------------------- |
+| :exclamation: _WARNING_ This is very early beta software that has not yet been proven to work. :exclamation: |
+| ------------------------------------------------------------------------------------------------------------ |
 
 ## Usage Instructions
 
