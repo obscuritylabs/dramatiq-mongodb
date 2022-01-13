@@ -1,0 +1,58 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  cd:
+    strategy:
+      matrix:
+        os:
+          - "ubuntu-latest"
+
+        python-version:
+          - "3.10"
+
+    concurrency: cd
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Pip Cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip
+
+      - name: Install Poetry
+        run: |
+          pip install poetry
+          poetry config installer.parallel true --local
+          poetry config virtualenvs.create true --local
+          poetry config virtualenvs.in-project true --local
+
+      - name: Poetry Cache
+        uses: actions/cache@v2
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock') }}
+
+      - name: Run Release Task
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "action@github.com"
+          poetry run task format
+          poetry run task release -D commit_author="github-actions <action@github.com>"
+        env:
+          GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          PyPI_TOKEN: ${{secrets.PyPI_TOKEN}}

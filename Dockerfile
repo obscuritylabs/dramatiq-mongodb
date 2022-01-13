@@ -18,9 +18,8 @@ WORKDIR /home/notroot/app
 FROM base AS builder
 RUN pip install poetry
 COPY pyproject.toml poetry.lock* ./
-RUN poetry install --no-root
+RUN poetry install --no-dev --no-root
 COPY ./src ./src
-RUN poetry install
 
 FROM base AS runner
 COPY --from=builder /home/notroot/app /home/notroot/app
