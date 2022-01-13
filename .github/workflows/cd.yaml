@@ -47,11 +47,18 @@ jobs:
           path: .venv
           key: venv-${{ runner.os }}-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock') }}
 
+      - name: Install Dependencies
+        run: |
+          poetry install
+
+      - name: Run Formatting Task
+        run: |
+          poetry run task format
+
       - name: Run Release Task
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "action@github.com"
-          poetry run task format
           poetry run task release
         env:
           GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
