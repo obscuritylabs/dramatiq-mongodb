@@ -2,6 +2,11 @@
 
 <!--next-version-placeholder-->
 
+## v0.5.1 (2022-01-14)
+### Fix
+* Match version in git tag ([`70f6625`](https://github.com/obscuritylabs/dramatiq-mongodb/commit/70f6625c3a11e6b741496aa5c2ee3c1992c2fe40))
+* Add pyproject.toml version back into release pipeline ([`62894c1`](https://github.com/obscuritylabs/dramatiq-mongodb/commit/62894c1d9ce071406399d79f119b8219db97295c))
+
 ## v0.5.0 (2022-01-14)
 ### Feature
 * Split out the different stages by event type ([`e22765a`](https://github.com/obscuritylabs/dramatiq-mongodb/commit/e22765ac7266854aca83d6c3b43a979c1bb80a59))
