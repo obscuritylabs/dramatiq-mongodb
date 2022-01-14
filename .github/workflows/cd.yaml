@@ -56,10 +56,21 @@ jobs:
         run: |
           poetry run task format
 
+      - name: Import GPG key
+        id: import_gpg
+        uses: crazy-max/ghaction-import-gpg@v4
+        with:
+          git_committer_name: "Obscurity Labs Bot"
+          git_committer_email: "github@obscuritylabs.com"
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          git_user_signingkey: true
+          git_commit_gpgsign: true
+          git_tag_gpgsign: true
+          git_push_gpgsign: true
+
       - name: Run Release Task
         run: |
-          git config --global user.name "Obscurity Labs Bot"
-          git config --global user.email "github@obscuritylabs.com"
-          poetry run task release -D commit_author="Obscurity Labs Bot <github@obscuritylabs.com>"
+          poetry run task release
         env:
-          PyPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
+          REPOSITORY_USERNAME: __token__
+          REPOSITORY_PASSWORD: ${{ secrets.PYPI_TOKEN }}
