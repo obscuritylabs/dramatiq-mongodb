@@ -2,6 +2,18 @@
 
 <!--next-version-placeholder-->
 
+## v0.5.0 (2022-01-14)
+### Feature
+* Split out the different stages by event type ([`e22765a`](https://github.com/obscuritylabs/dramatiq-mongodb/commit/e22765ac7266854aca83d6c3b43a979c1bb80a59))
+* Combine CI and CD pipelines ([`999b67e`](https://github.com/obscuritylabs/dramatiq-mongodb/commit/999b67efc206a3392c39a9fdfcb325587c59384c))
+
+### Fix
+* Change conditional for CD pipeline trigger ([`d90b9a1`](https://github.com/obscuritylabs/dramatiq-mongodb/commit/d90b9a13923ad8e2dfa0a7364cec5014d1ff88cc))
+* Fix conditional on triggering CD pipeline ([`dae2cb0`](https://github.com/obscuritylabs/dramatiq-mongodb/commit/dae2cb0afb813556d8676901532f04963df058d8))
+
+### Documentation
+* Update badge for CI / CD pipeline ([`fd32be2`](https://github.com/obscuritylabs/dramatiq-mongodb/commit/fd32be25a4d870844f3f40fef823ac789ae403cf))
+
 ## v0.4.0 (2022-01-14)
 ### Feature
 * Add extra pypi metadata to pyproject.toml ([`fc45455`](https://github.com/obscuritylabs/dramatiq-mongodb/commit/fc45455bf1fbd9823d561ef0070ed408bf55b006))
