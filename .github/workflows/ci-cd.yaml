@@ -1,12 +1,66 @@
-name: CD
+name: CI-CD
 
 on:
+  pull_request:
   push:
     branches:
       - main
-
 jobs:
+  ci:
+    strategy:
+      matrix:
+        os:
+          - "ubuntu-latest"
+
+        python-version:
+          - "3.7"
+          - "3.8"
+          - "3.9"
+          - "3.10"
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Pip Cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip
+
+      - name: Install Poetry
+        run: |
+          pip install poetry
+          poetry config installer.parallel true --local
+          poetry config virtualenvs.create true --local
+          poetry config virtualenvs.in-project true --local
+
+      - name: Poetry Cache
+        uses: actions/cache@v2
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock') }}
+
+      - name: Install Dependencies
+        run: |
+          poetry install
+
+      - name: Run Linting Task
+        run: |
+          poetry run task lint
+
+      - name: Run Test Task
+        run: |
+          poetry run task test
   cd:
+    needs: ci
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     strategy:
       matrix:
         os:
