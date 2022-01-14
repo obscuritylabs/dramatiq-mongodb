@@ -49,8 +49,11 @@ warn_unused_ignores = true
 
 [tool.poetry]
 authors = ["Tory Clasen <ToryClasen@Gmail.com>"]
-description = ""
+description = "Dramatiq-Mongodb Broker and Results Backend for Dramatiq"
+include = ["CHANGELOG.md"]
 license = "MIT"
+readme = "README.md"
+repository = "https://github.com/obscuritylabs/dramatiq-mongodb"
 name = "dramatiq-mongodb"
 version = "0.2.0"
 
