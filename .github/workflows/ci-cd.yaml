@@ -60,7 +60,7 @@ jobs:
           poetry run task test
   cd:
     needs: ci
-    if: github.event.pull_request.merged == 'true'
+    if: github.ref == 'refs/heads/main'
     strategy:
       matrix:
         os:
