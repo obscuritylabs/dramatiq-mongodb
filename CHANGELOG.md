@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.3.0 (2022-01-14)
+### Feature
+* Add status badges to README ([#42](https://github.com/obscuritylabs/dramatiq-mongodb/issues/42)) ([`9bc9565`](https://github.com/obscuritylabs/dramatiq-mongodb/commit/9bc9565f62291666b8cb676e180d223b84a9307c))
+
 ## v0.2.0 (2022-01-13)
 ### Feature
 * Add mongomock to development dependencies ([#27](https://github.com/obscuritylabs/dramatiq-mongodb/issues/27)) ([`f32874d`](https://github.com/obscuritylabs/dramatiq-mongodb/commit/f32874d8ed4af25e4f98e651526cb702ced17f26))
