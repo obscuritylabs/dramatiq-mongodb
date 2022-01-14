@@ -2,6 +2,14 @@
 
 <!--next-version-placeholder-->
 
+## v0.4.0 (2022-01-14)
+### Feature
+* Add extra pypi metadata to pyproject.toml ([`fc45455`](https://github.com/obscuritylabs/dramatiq-mongodb/commit/fc45455bf1fbd9823d561ef0070ed408bf55b006))
+* Add status badges to README ([`0593e23`](https://github.com/obscuritylabs/dramatiq-mongodb/commit/0593e23fff163a236c178ac5b071480d5c494cda))
+
+### Fix
+* Remove signed push from GPG task in CD pipeline ([`9d498fe`](https://github.com/obscuritylabs/dramatiq-mongodb/commit/9d498feda6d0ebd846be987d9c6ed272a3a4490f))
+
 ## v0.3.0 (2022-01-14)
 ### Feature
 * Add status badges to README ([#42](https://github.com/obscuritylabs/dramatiq-mongodb/issues/42)) ([`9bc9565`](https://github.com/obscuritylabs/dramatiq-mongodb/commit/9bc9565f62291666b8cb676e180d223b84a9307c))
