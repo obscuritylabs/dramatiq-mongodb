@@ -120,7 +120,7 @@ branch = "main"
 build_command = "poetry build -n"
 major_on_zero = false
 upload_to_PyPI = true
-upload_to_release = true
+upload_to_release = false
 version_variable = [
     "src/dramatiq_mongodb/__init__.py:__version__",
     "pyproject.toml:version",

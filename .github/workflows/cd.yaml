@@ -62,5 +62,4 @@ jobs:
           git config --global user.email "github@obscuritylabs.com"
           poetry run task release -D commit_author="Obscurity Labs Bot <github@obscuritylabs.com>"
         env:
-          GH_TOKEN: ${{secrets.BOT_PERSONAL_ACCESS_TOKEN}}
-          PyPI_TOKEN: ${{secrets.PyPI_TOKEN}}
+          PyPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
