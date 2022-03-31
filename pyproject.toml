@@ -89,7 +89,6 @@ safety = "^1.10.3"
 vulture = "^2.3"
 pytest-xdist = "^2.5.0"
 pyproject-flake8 = "^0.0.1-alpha.3"
-pytest-mongodb = "^2.2.0"
 
 [tool.pytest]
 
