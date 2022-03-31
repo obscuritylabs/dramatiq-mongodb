@@ -30,7 +30,7 @@ DEFAULT_TIMEOUT = 10000
 BACKOFF_FACTOR = 100
 
 
-class MongoDBBackend(ResultBackend):
+class MongoDBBackend(ResultBackend):  # type: ignore
     """Results Backend for MongoDB."""
 
     def __init__(

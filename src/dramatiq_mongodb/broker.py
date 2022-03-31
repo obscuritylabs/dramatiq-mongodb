@@ -23,7 +23,7 @@ from pymongo.database import Database
 from dramatiq_mongodb.state import State
 
 
-class MongoDBBroker(Broker):
+class MongoDBBroker(Broker):  # type: ignore
     """A broker that can be used with MongoDB."""
 
     def __init__(
@@ -133,7 +133,7 @@ class MongoDBBroker(Broker):
         return set(self.queues.keys())
 
 
-class _MongoDBConsumer(Consumer):
+class _MongoDBConsumer(Consumer):  # type: ignore
     def __init__(
         self: _MongoDBConsumer,
         broker: MongoDBBroker,
