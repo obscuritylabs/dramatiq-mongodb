@@ -53,11 +53,11 @@ jobs:
 
       - name: Run Linting Task
         run: |
-          poetry run task lint
+          make lint
 
       - name: Run Test Task
         run: |
-          poetry run task test
+          make test
   cd:
     needs: ci
     if: github.ref == 'refs/heads/main'
@@ -108,7 +108,7 @@ jobs:
 
       - name: Run Formatting Task
         run: |
-          poetry run task format
+          make lint
 
       - name: Import GPG key
         id: import_gpg
@@ -123,7 +123,7 @@ jobs:
 
       - name: Run Release Task
         run: |
-          poetry run task release
+          poetry run semantic-release publish
         env:
           REPOSITORY_USERNAME: __token__
           REPOSITORY_PASSWORD: ${{ secrets.PYPI_TOKEN }}
