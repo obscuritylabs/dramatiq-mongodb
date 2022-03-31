@@ -108,6 +108,7 @@ version_variable = [
     "src/dramatiq_mongodb/__init__.py:__version__",
     "pyproject.toml:version",
 ]
+commit_subject = "bump: release {version}"
 
 [tool.vulture]
 min_confidence = 80
