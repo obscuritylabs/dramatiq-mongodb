@@ -98,12 +98,16 @@ norecursedirs = [".*", "*.egg", "build", "dist"]
 testpaths = ["tests/"]
 
 [tool.semantic_release]
-build_command = "poetry build"
+branch = "main"
+build_command = "poetry build -n"
 pre_commit_command = "poetry run pre-commit run --all-files"
-repository = false
-upload_to_pypi = false
-upload_to_repository = false
-version_source = "tag"
+major_on_zero = false
+upload_to_PyPI = true
+upload_to_release = false
+version_variable = [
+    "src/dramatiq_mongodb/__init__.py:__version__",
+    "pyproject.toml:version",
+]
 
 [tool.vulture]
 min_confidence = 80
