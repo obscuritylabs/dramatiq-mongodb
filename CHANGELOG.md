@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.6.0 (2022-03-31)
+### Feature
+* Downgrade pymongo to support latest motor client as well ([`65b38f4`](https://github.com/obscuritylabs/dramatiq-mongodb/commit/65b38f422528560c4006cac61d2aa95486073a9f))
+
 ## v0.5.1 (2022-01-14)
 ### Fix
 * Match version in git tag ([`70f6625`](https://github.com/obscuritylabs/dramatiq-mongodb/commit/70f6625c3a11e6b741496aa5c2ee3c1992c2fe40))
