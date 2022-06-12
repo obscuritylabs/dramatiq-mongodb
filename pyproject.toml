@@ -30,9 +30,9 @@ source = ["src"]
 docstring_style = "google"
 exclude = [".git", ".venv", "__pycache__", "build", "dist", "setup.py"]
 ignore = ["B506", "D100", "D104", "S101"]
-per-file-ignores = ["tests/*.py: S101 DAR101"]
 max-complexity = 10
 max_line_length = 120
+per-file-ignores = ["tests/*.py: S101 DAR101"]
 strictness = "full"
 
 [tool.isort]
@@ -43,14 +43,14 @@ line_length = 120
 profile = "black"
 
 [tool.mypy]
+exclude = ".venv"
+follow_imports = "normal"
+ignore_missing_imports = true
 pretty = true
 show_column_numbers = true
 show_error_codes = true
 show_error_context = true
 strict = true
-follow_imports = "normal"
-ignore_missing_imports = true
-exclude = ".venv"
 
 [tool.poetry]
 authors = ["Tory Clasen <ToryClasen@Gmail.com>"]
@@ -73,6 +73,7 @@ black = "^22.3.0"
 commitizen = "^2.23.0"
 darglint = "^1.8.1"
 dlint = "^0.12.0"
+dramatiq = {extras = ["watch"], version = "^1.13.0"}
 flake8 = "^4.0.1"
 flake8-bandit = "^3.0.0"
 flake8-bugbear = "^22.3.23"
@@ -80,15 +81,15 @@ flake8-docstrings = "^1.6.0"
 isort = "^5.10.1"
 mypy = "^0.942"
 pre-commit = "^2.17.0"
+pyproject-flake8 = "^0.0.1-alpha.3"
 pytest = "^7.1.1"
 pytest-clarity = "^1.0.1"
 pytest-cov = "^3.0.0"
 pytest-sugar = "^0.9.4"
+pytest-xdist = "^2.5.0"
 python-semantic-release = "^7.27.0"
 safety = "^1.10.3"
 vulture = "^2.3"
-pytest-xdist = "^2.5.0"
-pyproject-flake8 = "^0.0.1-alpha.3"
 
 [tool.pytest]
 
@@ -100,15 +101,15 @@ testpaths = ["tests/"]
 [tool.semantic_release]
 branch = "main"
 build_command = "poetry build -n"
-pre_commit_command = "poetry run pre-commit run --all-files"
+commit_subject = "bump: release {version}"
 major_on_zero = false
+pre_commit_command = "poetry run pre-commit run --all-files"
 upload_to_PyPI = true
 upload_to_release = false
 version_variable = [
-    "src/dramatiq_mongodb/__init__.py:__version__",
-    "pyproject.toml:version",
+  "src/dramatiq_mongodb/__init__.py:__version__",
+  "pyproject.toml:version",
 ]
-commit_subject = "bump: release {version}"
 
 [tool.vulture]
 min_confidence = 80
