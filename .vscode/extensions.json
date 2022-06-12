@@ -4,6 +4,7 @@
     "ms-python.vscode-pylance",
     "ms-python.python",
     "njpwerner.autodocstring",
-    "mongodb.mongodb-vscode"
+    "mongodb.mongodb-vscode",
+    "be5invis.toml"
   ]
 }
