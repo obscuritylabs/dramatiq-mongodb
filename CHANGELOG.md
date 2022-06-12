@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.6.1 (2022-06-12)
+### Fix
+* Clean handling of no remaining tasks on queue ([`cfa4de5`](https://github.com/obscuritylabs/dramatiq-mongodb/commit/cfa4de540b3f704bdbbf4d57cc033c44657b473f))
+
 ## v0.6.0 (2022-03-31)
 ### Feature
 * Downgrade pymongo to support latest motor client as well ([`65b38f4`](https://github.com/obscuritylabs/dramatiq-mongodb/commit/65b38f422528560c4006cac61d2aa95486073a9f))

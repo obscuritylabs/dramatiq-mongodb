@@ -3,4 +3,4 @@ from dramatiq_mongodb.broker import MongoDBBroker
 
 __all__ = ["MongoDBBroker", "MongoDBBackend"]
 
-__version__ = "0.6.0"
+__version__ = "0.6.1"
