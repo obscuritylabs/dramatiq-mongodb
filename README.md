@@ -22,15 +22,21 @@ poetry install
 Install githooks to automate quality checks locally:
 
 ```shell
-poetry run task init
+poetry run pre-commit install --install-hooks -t pre-commit -t commit-msg
 ```
 
 ### Run code quality checks locally
 
-This project uses [TaskiPy](https://pypi.org/project/taskipy/) as an alternative to a makefile. Also like a makefile some of these commands are composites. For example, `poetry run task lint` is really just a meta task that runs `poetry run task lint_flake8` followed by `poetry run task lint_mypy`. If you need to see which tasks can be run and what they do, you can use the following command:
+All code quality checks are performed using the Makefile at the root of the repository. You can execute individual steps by name or execute all steps by omitting a target using `make` or specifying `make all`:
 
 ```shell
-poetry run task --list
+make all
+```
+
+If you want to purge the repo of all ignore files include the embedded virtual environment then run all tests in a fresh environment you can run:
+
+```shell
+make clean all
 ```
 
 Changelog and semantic version are automated using [Semantic-Release](https://python-semantic-release.readthedocs.io/en/latest/) during the CD process. To accomplish this, this repository makes heavy use of [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/), thought this isn't strictly enforced on the server side at this time until 1.0 is released, but the githooks will lint your commits.
