@@ -170,7 +170,9 @@ class _MongoDBConsumer(Consumer):  # type: ignore
             sort=[("timestamp", pymongo.ASCENDING)],
         )
         try:
-            return MessageProxy(Message(**document["msg"]))
+            if document:
+                return MessageProxy(Message(**document["msg"]))
+            return None
         except Exception as e:
             self.logger.exception(f"Failed to decode message: {document}. Error is: {e}")
             return None
