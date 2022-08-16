@@ -23,7 +23,7 @@ repos:
         name: flake8
         language: system
         types: [python]
-        entry: .venv/bin/pflake8
+        entry: .venv/bin/flake8
 
       - id: mypy
         name: mypy
