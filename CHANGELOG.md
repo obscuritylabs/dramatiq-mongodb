@@ -2,6 +2,13 @@
 
 <!--next-version-placeholder-->
 
+## v0.6.2 (2022-08-16)
+### Fix
+* Update type hints for new pymongo stubs ([`f4d24c8`](https://github.com/obscuritylabs/dramatiq-mongodb/commit/f4d24c83eeabb4bc86bfb34386042f3e956a3145))
+
+### Documentation
+* Update from taskipy to makefile ([`a68824a`](https://github.com/obscuritylabs/dramatiq-mongodb/commit/a68824ab54db6c7dd2d2c1643192972525b95b48))
+
 ## v0.6.1 (2022-06-12)
 ### Fix
 * Clean handling of no remaining tasks on queue ([`cfa4de5`](https://github.com/obscuritylabs/dramatiq-mongodb/commit/cfa4de540b3f704bdbbf4d57cc033c44657b473f))
