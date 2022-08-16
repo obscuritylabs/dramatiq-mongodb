@@ -36,7 +36,7 @@ class MongoDBBackend(ResultBackend):  # type: ignore
     def __init__(
         self: MongoDBBackend,
         *,
-        database: Database,
+        database: Database[Any],
         collection_prefix: Optional[str] = "",
         namespace: Optional[str] = None,
         encoder: Optional[Encoder] = None,
@@ -62,7 +62,7 @@ class MongoDBBackend(ResultBackend):  # type: ignore
         self.logger = get_logger(__name__, type(self))
         self.database = database
 
-    def build_message_key(self: MongoDBBackend, message: Message) -> Tuple[Collection, UUID]:
+    def build_message_key(self: MongoDBBackend, message: Message) -> Tuple[Collection[Any], UUID]:
         """Extract the MongoDB Collection name and UUID used for documents from messae.
 
         Args:
@@ -76,7 +76,7 @@ class MongoDBBackend(ResultBackend):  # type: ignore
             UUID(message.message_id),
         )
 
-    def get_collection(self: MongoDBBackend, message: Message) -> Collection:
+    def get_collection(self: MongoDBBackend, message: Message) -> Collection[Any]:
         """Return handle to collection based on metadata in message.
 
         Args:
@@ -85,7 +85,7 @@ class MongoDBBackend(ResultBackend):  # type: ignore
         Returns:
             Collection: Collection handle to use for results.
         """
-        std_opts = CodecOptions(uuid_representation=UuidRepresentation.STANDARD)
+        std_opts = CodecOptions(uuid_representation=UuidRepresentation.STANDARD)  # type: ignore
         return self.database.get_collection(self._collection_prefix + message.queue_name, codec_options=std_opts)
 
     def get_result(

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from collections import deque
+from typing import Any
 from typing import Dict
 from typing import Iterable
 from typing import List
@@ -29,7 +30,7 @@ class MongoDBBroker(Broker):  # type: ignore
     def __init__(
         self: MongoDBBroker,
         *,
-        database: Database,
+        database: Database[Any],
         collection_prefix: Optional[str] = "",
         middleware: Optional[List[Middleware]] = None,
     ) -> None:
@@ -50,7 +51,7 @@ class MongoDBBroker(Broker):  # type: ignore
         if collection_prefix:
             self._collection_prefix = collection_prefix.rstrip("_") + "_"
 
-        self.queues: Dict[str, Collection] = {}
+        self.queues: Dict[str, Collection[Any]] = {}
 
     def consume(
         self: MongoDBBroker,
@@ -80,7 +81,7 @@ class MongoDBBroker(Broker):  # type: ignore
             collection_name = self._collection_prefix + queue_name
             self.logger.debug(f"Creating queue ({queue_name}) which will have a collection name of {collection_name}")
             self.emit_before("declare_queue", queue_name)
-            std_opts = CodecOptions(uuid_representation=UuidRepresentation.STANDARD)
+            std_opts = CodecOptions[Any](uuid_representation=UuidRepresentation.STANDARD)
             self.queues[queue_name] = self.database.get_collection(collection_name, codec_options=std_opts)
             self.emit_after("declare_queue", queue_name)
 
@@ -137,7 +138,7 @@ class _MongoDBConsumer(Consumer):  # type: ignore
     def __init__(
         self: _MongoDBConsumer,
         broker: MongoDBBroker,
-        queue: Collection,
+        queue: Collection[Any],
         prefetch: Optional[int],
         timeout: Optional[int],
     ) -> None:
@@ -151,7 +152,7 @@ class _MongoDBConsumer(Consumer):  # type: ignore
         """
         self.logger = get_logger(__name__, type(self))
         self.broker = broker
-        self.queue: Collection = queue
+        self.queue: Collection[Any] = queue
         self.messages: deque[Message] = deque()
         self.prefetch = prefetch
         self.timeout = timeout
