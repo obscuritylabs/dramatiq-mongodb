@@ -29,10 +29,10 @@ source = ["src"]
 [tool.flake8]
 docstring_style = "google"
 exclude = [".git", ".venv", "__pycache__", "build", "dist", "setup.py"]
-ignore = ["B506", "D100", "D104", "S101"]
+ignore = "B506 D100 D104 S101"
 max-complexity = 10
 max_line_length = 120
-per-file-ignores = ["tests/*.py: S101 DAR101"]
+per-file-ignores = "tests/*.py: S101 DAR101"
 strictness = "full"
 
 [tool.isort]
@@ -64,7 +64,7 @@ version = "0.6.1"
 
 [tool.poetry.dependencies]
 dramatiq = "^1.12.1"
-pymongo = ">=3.12,<4"
+pymongo = ">=4.1,<5"
 python = ">=3.7,<4"
 
 [tool.poetry.dev-dependencies]
@@ -74,14 +74,11 @@ commitizen = "^2.23.0"
 darglint = "^1.8.1"
 dlint = "^0.12.0"
 dramatiq = {extras = ["watch"], version = "^1.13.0"}
-flake8 = "^4.0.1"
-flake8-bandit = "^3.0.0"
 flake8-bugbear = "^22.3.23"
 flake8-docstrings = "^1.6.0"
 isort = "^5.10.1"
 mypy = "^0.942"
 pre-commit = "^2.17.0"
-pyproject-flake8 = "^0.0.1-alpha.3"
 pytest = "^7.1.1"
 pytest-clarity = "^1.0.1"
 pytest-cov = "^3.0.0"
@@ -90,6 +87,7 @@ pytest-xdist = "^2.5.0"
 python-semantic-release = "^7.27.0"
 safety = "^1.10.3"
 vulture = "^2.3"
+flake8-pep518 = "^0.1.0"
 
 [tool.pytest]
 
