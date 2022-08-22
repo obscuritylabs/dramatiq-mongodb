@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.6.3 (2022-08-22)
+### Fix
+* Close mongo client connection when broker is closed ([`263ef66`](https://github.com/obscuritylabs/dramatiq-mongodb/commit/263ef6656e437e109c3faabba8e87ebd64fcef3c))
+
 ## v0.6.2 (2022-08-16)
 ### Fix
 * Update type hints for new pymongo stubs ([`f4d24c8`](https://github.com/obscuritylabs/dramatiq-mongodb/commit/f4d24c83eeabb4bc86bfb34386042f3e956a3145))
