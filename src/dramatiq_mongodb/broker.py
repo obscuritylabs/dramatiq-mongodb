@@ -53,6 +53,10 @@ class MongoDBBroker(Broker):  # type: ignore
 
         self.queues: Dict[str, Collection[Any]] = {}
 
+    def close(self) -> None:
+        """Close database connection when closed by consumer."""
+        self.database.client.close()
+
     def consume(
         self: MongoDBBroker,
         queue_name: str,
