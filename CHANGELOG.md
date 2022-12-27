@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.7.0 (2022-12-27)
+### Feature
+* Add python 3.11 support to CI ([`3744ad8`](https://github.com/obscuritylabs/dramatiq-mongodb/commit/3744ad8bf0b33fc5f44cd73d980324c33e1defc1))
+
 ## v0.6.3 (2022-08-22)
 ### Fix
 * Close mongo client connection when broker is closed ([`263ef66`](https://github.com/obscuritylabs/dramatiq-mongodb/commit/263ef6656e437e109c3faabba8e87ebd64fcef3c))

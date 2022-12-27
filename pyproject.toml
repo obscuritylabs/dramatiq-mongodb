@@ -60,7 +60,7 @@ license = "MIT"
 name = "dramatiq-mongodb"
 readme = "README.md"
 repository = "https://github.com/obscuritylabs/dramatiq-mongodb"
-version = "0.6.3"
+version = "0.7.0"
 
 [tool.poetry.dependencies]
 dramatiq = "^1.12.1"
