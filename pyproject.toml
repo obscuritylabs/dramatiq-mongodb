@@ -67,7 +67,7 @@ dramatiq = "^1.12.1"
 pymongo = ">=4.1,<5"
 python = ">=3.7,<4"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 autoflake = "^1.4"
 black = "^22.3.0"
 commitizen = "^2.23.0"
@@ -76,6 +76,7 @@ dlint = "^0.12.0"
 dramatiq = {extras = ["watch"], version = "^1.13.0"}
 flake8-bugbear = "^22.3.23"
 flake8-docstrings = "^1.6.0"
+flake8-pep518 = "^0.1.0"
 isort = "^5.10.1"
 mypy = "^0.942"
 pre-commit = "^2.17.0"
@@ -83,11 +84,10 @@ pytest = "^7.1.1"
 pytest-clarity = "^1.0.1"
 pytest-cov = "^3.0.0"
 pytest-sugar = "^0.9.4"
-pytest-xdist = "^2.5.0"
+pytest-xdist = "^3.1.0"
 python-semantic-release = "^7.27.0"
-safety = "^1.10.3"
+safety = "^2.3.5"
 vulture = "^2.3"
-flake8-pep518 = "^0.1.0"
 
 [tool.pytest]
 
