@@ -3,7 +3,7 @@
 | :exclamation: _WARNING_ This is very early beta software that has not yet been proven to work. :exclamation: |
 | ------------------------------------------------------------------------------------------------------------ |
 
-![CI/CD Pipeline](https://img.shields.io/github/workflow/status/obscuritylabs/dramatiq-mongodb/CI-CD/main?label=CI/CD)
+![CI/CD Pipeline](https://img.shields.io/github/actions/workflow/status/obscuritylabs/dramatiq-mongodb/ci-cd.yaml)
 
 ![Latest SEMVER](https://img.shields.io/github/v/tag/obscuritylabs/dramatiq-mongodb)
 
