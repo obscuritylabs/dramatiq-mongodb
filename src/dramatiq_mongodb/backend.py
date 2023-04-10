@@ -145,10 +145,13 @@ class MongoDBBackend(ResultBackend):  # type: ignore
         """
         ttl = ttl  # Ugly hack to get argument checker to let me leave this in.
         collection, message_key = self.build_message_key(message)
-        collection.update_one(
+        results = collection.update_one(
             filter={"_id": message_key},
             update={"$set": {"result": wrap_result(result)}},
         )
+
+        if results.matched_count != 1 or results.modified_count != 1:
+            self.logger.exception(f"Failed to store results for {message.message_id}")
 
     def store_exception(self: MongoDBBackend, message: Message, exception: Exception, ttl: Optional[int]) -> None:
         """Store result for a failed message as a serialized exception.
@@ -160,7 +163,10 @@ class MongoDBBackend(ResultBackend):  # type: ignore
         """
         ttl = ttl  # Ugly hack to get argument checker to let me leave this in.
         collection, message_key = self.build_message_key(message)
-        collection.update_one(
+        results = collection.update_one(
             filter={"_id": message_key},
             update={"$set": {"exception": wrap_exception(exception)}},
         )
+
+        if results.matched_count != 1 or results.modified_count != 1:
+            self.logger.exception(f"Failed to store exception for {message.message_id}")
