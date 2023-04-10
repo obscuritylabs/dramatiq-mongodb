@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from collections import deque
+from logging import Logger
 from typing import Any
 from typing import Dict
 from typing import Iterable
@@ -24,7 +25,7 @@ from pymongo.database import Database
 from dramatiq_mongodb.state import State
 
 
-class MongoDBBroker(Broker):  # type: ignore
+class MongoDBBroker(Broker):
     """A broker that can be used with MongoDB."""
 
     def __init__(
@@ -41,9 +42,9 @@ class MongoDBBroker(Broker):  # type: ignore
             collection_prefix (str, optional): Prefix for all newly created collections. Defaults to "".
             middleware (Optional[List[Middleware]], optional): Middlware to pass to Dramatiq. Defaults to None.
         """
-        super().__init__(middleware=middleware)
+        super().__init__(middleware=middleware)  # type: ignore
 
-        self.logger = get_logger(__name__, type(self))
+        self.logger: Logger = get_logger(__name__, type(self))  # type: ignore
         self.database = database
 
         self._collection_prefix = ""
@@ -84,26 +85,27 @@ class MongoDBBroker(Broker):  # type: ignore
         if queue_name not in self.queues:
             collection_name = self._collection_prefix + queue_name
             self.logger.debug(f"Creating queue ({queue_name}) which will have a collection name of {collection_name}")
-            self.emit_before("declare_queue", queue_name)
+            self.emit_before("declare_queue", queue_name)  # type: ignore
             std_opts = CodecOptions[Any](uuid_representation=UuidRepresentation.STANDARD)
             self.queues[queue_name] = self.database.get_collection(collection_name, codec_options=std_opts)
-            self.emit_after("declare_queue", queue_name)
+            self.emit_after("declare_queue", queue_name)  # type: ignore
 
-    def enqueue(self: MongoDBBroker, message: Message, *, delay: Optional[int] = None) -> Message:
+    def enqueue(self: MongoDBBroker, message: Message[Any], *, delay: Optional[int] = None) -> Message[Any]:
         """Enqueue a new message on the designated queue.
 
         Args:
-            message (Message): The message to enqueue
+            message (Message[Any]): The message to enqueue
             delay (Optional[int], optional): Milliseconds until message should br processed. Defaults to None.
 
         Returns:
-            Message: The message that was enqueued.
+            Message[Any]: The message that was enqueued.
         """
-        self.emit_before("enqueue", message, delay)
+        self.emit_before("enqueue", message, delay)  # type: ignore
         queue_name = message.queue_name
         self.logger.debug(f"Enqueueing message {message.message_id} on queue {queue_name}")
         if delay:
-            message = message.copy(options={"eta": current_millis() + delay})
+            millis: int = current_millis()  # type: ignore
+            message = message.copy(options={"eta": millis + delay})
 
         document = {"msg": message.asdict(), "state": State.QUEUED}
         collection = self.queues[queue_name]
@@ -114,7 +116,7 @@ class MongoDBBroker(Broker):  # type: ignore
         )
         if results.matched_count != 1 or results.modified_count != 1:
             self.logger.exception(f"Failed to enqueue {message.message_id}")
-        self.emit_after("enqueue", message, delay)
+        self.emit_after("enqueue", message, delay)  # type: ignore
         return message
 
     def flush(self: MongoDBBroker, queue_name: str) -> None:
@@ -140,7 +142,7 @@ class MongoDBBroker(Broker):  # type: ignore
         return set(self.queues.keys())
 
 
-class _MongoDBConsumer(Consumer):  # type: ignore
+class _MongoDBConsumer(Consumer):
     def __init__(
         self: _MongoDBConsumer,
         broker: MongoDBBroker,
@@ -156,10 +158,10 @@ class _MongoDBConsumer(Consumer):  # type: ignore
             prefetch (Optional[int]): Not currently used.
             timeout (Optional[int]): Not currently used.
         """
-        self.logger = get_logger(__name__, type(self))
+        self.logger: Logger = get_logger(__name__, type(self))  # type: ignore
         self.broker = broker
         self.queue: Collection[Any] = queue
-        self.messages: deque[Message] = deque()
+        self.messages: deque[Message[Any]] = deque()
         self.prefetch = prefetch
         self.timeout = timeout
 
@@ -178,7 +180,7 @@ class _MongoDBConsumer(Consumer):  # type: ignore
         )
         try:
             if document:
-                return MessageProxy(Message(**document["msg"]))
+                return MessageProxy(Message[Any](**document["msg"]))  # type: ignore
             return None
         except Exception as e:
             self.logger.exception(f"Failed to decode message: {document}. Error is: {e}")
