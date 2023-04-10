@@ -107,15 +107,14 @@ class MongoDBBroker(Broker):
             millis: int = current_millis()  # type: ignore
             message = message.copy(options={"eta": millis + delay})
 
-        document = {"msg": message.asdict(), "state": State.QUEUED}
+        document = {
+            "_id": UUID(message.message_id),
+            "msg": message.asdict(),
+            "state": State.QUEUED,
+        }
         collection = self.queues[queue_name]
-        results = collection.replace_one(
-            filter={"_id": UUID(message.message_id)},
-            replacement=document,
-            upsert=True,
-        )
-        if results.matched_count != 1 or results.modified_count != 1:
-            self.logger.exception(f"Failed to enqueue {message.message_id}")
+        collection.insert_one(document=document)
+
         self.emit_after("enqueue", message, delay)  # type: ignore
         return message
 
