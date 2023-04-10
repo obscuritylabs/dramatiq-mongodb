@@ -107,11 +107,13 @@ class MongoDBBroker(Broker):  # type: ignore
 
         document = {"msg": message.asdict(), "state": State.QUEUED}
         collection = self.queues[queue_name]
-        collection.replace_one(
+        results = collection.replace_one(
             filter={"_id": UUID(message.message_id)},
             replacement=document,
             upsert=True,
         )
+        if results.matched_count != 1 or results.modified_count != 1:
+            self.logger.exception(f"Failed to enqueue {message.message_id}")
         self.emit_after("enqueue", message, delay)
         return message
 
@@ -188,10 +190,13 @@ class _MongoDBConsumer(Consumer):  # type: ignore
         Args:
             message (MessageProxy): The message to ack.
         """
-        self.queue.update_one(
+        results = self.queue.update_one(
             filter={"_id": UUID(message.message_id), "state": State.CONSUMED},
             update={"$set": {"state": State.DONE}},
         )
+
+        if results.matched_count != 1 or results.modified_count != 1:
+            self.logger.exception(f"Failed to ack {message.message_id}")
 
     def nack(self: _MongoDBConsumer, message: MessageProxy) -> None:
         """Non-Acknowledge a message as having been rejected.
@@ -199,10 +204,13 @@ class _MongoDBConsumer(Consumer):  # type: ignore
         Args:
             message (MessageProxy): The message to nack.
         """
-        self.queue.update_one(
+        results = self.queue.update_one(
             filter={"_id": UUID(message.message_id), "state": State.CONSUMED},
             update={"$set": {"state": State.REJECTED}},
         )
+
+        if results.matched_count != 1 or results.modified_count != 1:
+            self.logger.exception(f"Failed to nack {message.message_id}")
 
     def requeue(self: _MongoDBConsumer, messages: List[MessageProxy]) -> None:
         """Requeue all messaged that have been claimed but not acked or nacked.
