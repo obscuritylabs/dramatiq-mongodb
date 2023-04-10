@@ -2,6 +2,11 @@
 
 <!--next-version-placeholder-->
 
+## v0.8.2 (2023-04-10)
+### Fix
+* Turns out python3.7 doesn't have = in f-strings ([`caf8b48`](https://github.com/obscuritylabs/dramatiq-mongodb/commit/caf8b48abbd93b5ae632e3c3ea796b1e4005f3df))
+* Convert enqueue back to replace with better edge case detection ([`d15ad01`](https://github.com/obscuritylabs/dramatiq-mongodb/commit/d15ad01a44136c5ba4d2db89ded3af4bc729d022))
+
 ## v0.8.1 (2023-04-10)
 ### Fix
 * Convert enqueue to insert ([`25a4f71`](https://github.com/obscuritylabs/dramatiq-mongodb/commit/25a4f719f51867b011865d32f14acdcfa1265bc9))
