@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.8.1 (2023-04-10)
+### Fix
+* Convert enqueue to insert ([`25a4f71`](https://github.com/obscuritylabs/dramatiq-mongodb/commit/25a4f719f51867b011865d32f14acdcfa1265bc9))
+
 ## v0.8.0 (2023-04-10)
 ### Feature
 * Bump dramatic version ([`5235637`](https://github.com/obscuritylabs/dramatiq-mongodb/commit/5235637d64edb0caa63a4890d8ce6f3acd17b99a))
