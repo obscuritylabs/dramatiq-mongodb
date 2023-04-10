@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.8.3 (2023-04-10)
+### Fix
+* Change enqueue and requeue to use different logic ([`c0cd21b`](https://github.com/obscuritylabs/dramatiq-mongodb/commit/c0cd21b0fb1743e1bbe76a6319b76085e4ce2db8))
+
 ## v0.8.2 (2023-04-10)
 ### Fix
 * Turns out python3.7 doesn't have = in f-strings ([`caf8b48`](https://github.com/obscuritylabs/dramatiq-mongodb/commit/caf8b48abbd93b5ae632e3c3ea796b1e4005f3df))
