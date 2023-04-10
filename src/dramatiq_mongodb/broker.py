@@ -107,21 +107,44 @@ class MongoDBBroker(Broker):
             millis: int = current_millis()  # type: ignore
             message = message.copy(options={"eta": millis + delay})
 
+        document = {
+            "_id": UUID(message.message_id),
+            "msg": message.asdict(),
+            "state": State.QUEUED,
+        }
+        collection = self.queues[queue_name]
+        collection.insert_one(document)
+
+        self.emit_after("enqueue", message, delay)  # type: ignore
+        return message
+
+    def requeue(self: MongoDBBroker, message: Message[Any], *, delay: Optional[int] = None) -> Message[Any]:
+        """Requeue an existing message on the designated queue.
+
+        Args:
+            message (Message[Any]): The message to enqueue
+            delay (Optional[int], optional): Milliseconds until message should br processed. Defaults to None.
+
+        Returns:
+            Message[Any]: The message that was requeued.
+        """
+        self.emit_before("enqueue", message, delay)  # type: ignore
+        queue_name = message.queue_name
+        self.logger.debug(f"Requeueing message {message.message_id} on queue {queue_name}")
+        if delay:
+            millis: int = current_millis()  # type: ignore
+            message = message.copy(options={"eta": millis + delay})
+
         document = {"msg": message.asdict(), "state": State.QUEUED}
         collection = self.queues[queue_name]
 
-        results = collection.replace_one(
+        collection.replace_one(
             filter={
                 "_id": UUID(message.message_id),
-                "state": {"$or": [{"$exists": False}, {"state": State.CONSUMED}]},
+                "state": State.CONSUMED,
             },
             replacement=document,
-            upsert=True,
         )
-        if results.matched_count > 1 or results.modified_count > 1:
-            self.logger.exception(
-                f"Failed to enqueue {message.message_id} / {results.matched_count} / {results.modified_count}"
-            )
 
         self.emit_after("enqueue", message, delay)  # type: ignore
         return message
@@ -226,4 +249,4 @@ class _MongoDBConsumer(Consumer):
             messages (List[MessageProxy]): The list of messages to requeue.
         """
         for message in messages:
-            self.broker.enqueue(message._message)  # noqa: SF01
+            self.broker.requeue(message._message)  # noqa: SF01
