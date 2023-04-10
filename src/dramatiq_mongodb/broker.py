@@ -107,13 +107,21 @@ class MongoDBBroker(Broker):
             millis: int = current_millis()  # type: ignore
             message = message.copy(options={"eta": millis + delay})
 
-        document = {
-            "_id": UUID(message.message_id),
-            "msg": message.asdict(),
-            "state": State.QUEUED,
-        }
+        document = {"msg": message.asdict(), "state": State.QUEUED}
         collection = self.queues[queue_name]
-        collection.insert_one(document=document)
+
+        results = collection.replace_one(
+            filter={
+                "_id": UUID(message.message_id),
+                "state": {"$or": [{"$exists": False}, {"state": State.CONSUMED}]},
+            },
+            replacement=document,
+            upsert=True,
+        )
+        if results.matched_count > 1 or results.modified_count > 1:
+            self.logger.exception(
+                f"Failed to enqueue {message.message_id} / {results.matched_count} / {results.modified_count}"
+            )
 
         self.emit_after("enqueue", message, delay)  # type: ignore
         return message
@@ -171,9 +179,7 @@ class _MongoDBConsumer(Consumer):
             Optional[MessageProxy]: The next item to be consumed
         """
         document = self.queue.find_one_and_update(
-            filter={
-                "state": State.QUEUED,
-            },
+            filter={"state": State.QUEUED},
             update={"$set": {"state": State.CONSUMED}},
             sort=[("timestamp", pymongo.ASCENDING)],
         )
