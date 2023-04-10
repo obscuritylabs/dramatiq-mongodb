@@ -63,7 +63,7 @@ repository = "https://github.com/obscuritylabs/dramatiq-mongodb"
 version = "0.7.1"
 
 [tool.poetry.dependencies]
-dramatiq = "^1.12.1"
+dramatiq = "^1.14.2"
 pymongo = ">=4.1,<5"
 python = ">=3.7,<4"
 
