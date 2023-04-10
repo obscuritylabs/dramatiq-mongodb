@@ -2,6 +2,13 @@
 
 <!--next-version-placeholder-->
 
+## v0.8.0 (2023-04-10)
+### Feature
+* Bump dramatic version ([`5235637`](https://github.com/obscuritylabs/dramatiq-mongodb/commit/5235637d64edb0caa63a4890d8ce6f3acd17b99a))
+
+### Fix
+* Resolve typing issues from updating dramatiq version ([`5039aca`](https://github.com/obscuritylabs/dramatiq-mongodb/commit/5039aca9e80345ce5e0873010decbd9a1a23f35b))
+
 ## v0.7.1 (2023-04-10)
 ### Fix
 * Add exception logging to any mongodb update failure to catch non-atomic operations ([`b5355d6`](https://github.com/obscuritylabs/dramatiq-mongodb/commit/b5355d6b5d93a14393e86b73a1df9df8dec519bf))
