@@ -113,9 +113,7 @@ class MongoDBBroker(Broker):
         results = collection.replace_one(
             filter={
                 "_id": UUID(message.message_id),
-                "state": {
-                    "$or": [{"$exists": False}, {"state": State.CONSUMED}]  # New message  # Requeing a previous message
-                },
+                "state": {"$or": [{"$exists": False}, {"state": State.CONSUMED}]},
             },
             replacement=document,
             upsert=True,
