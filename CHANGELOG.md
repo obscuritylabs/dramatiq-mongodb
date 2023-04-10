@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.7.1 (2023-04-10)
+### Fix
+* Add exception logging to any mongodb update failure to catch non-atomic operations ([`b5355d6`](https://github.com/obscuritylabs/dramatiq-mongodb/commit/b5355d6b5d93a14393e86b73a1df9df8dec519bf))
+
 ## v0.7.0 (2022-12-27)
 ### Feature
 * Add python 3.11 support to CI ([`3744ad8`](https://github.com/obscuritylabs/dramatiq-mongodb/commit/3744ad8bf0b33fc5f44cd73d980324c33e1defc1))
