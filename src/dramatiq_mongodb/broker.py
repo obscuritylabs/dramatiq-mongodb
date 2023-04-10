@@ -120,7 +120,7 @@ class MongoDBBroker(Broker):
         )
         if results.matched_count > 1 or results.modified_count > 1:
             self.logger.exception(
-                f"Failed to enqueue {message.message_id} {results.matched_count=} {results.modified_count=}"
+                f"Failed to enqueue {message.message_id} / {results.matched_count} / {results.modified_count}"
             )
 
         self.emit_after("enqueue", message, delay)  # type: ignore
